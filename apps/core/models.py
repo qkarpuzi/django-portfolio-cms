@@ -26,7 +26,7 @@ class Skill(models.Model):
     ]
 
     name = models.CharField(max_length=100)
-    icon = models.CharField(max_length=100, blank=True, help_text="e.g. 'fab fa-python' (Font Awesome class)")
+    icon = models.ImageField(upload_to='skills/', blank=True, null=True, help_text="Upload a small logo/icon image")
     proficiency = models.CharField(max_length=20, choices=PROFICIENCY_CHOICES, default='intermediate')
     order = models.PositiveIntegerField(default=0, help_text="Lower numbers appear first")
 
