@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Projects | My Portfolio{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">My Projects</h1>
+
+    {% if projects %}
+        <div class="row g-4">
+            {% for project in projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ project.title }}</h5>
+                            <p class="card-text">{{ project.short_description }}</p>
+                            <div class="mb-2">
+                                {% for tech in project.technologies.all %}
+                                    <span class="badge bg-secondary">{{ tech.name }}</span>
+                                {% endfor %}
+                            </div>
+                            {% if project.live_url %}
+                                <a href="{{ project.live_url }}" class="btn btn-sm btn-primary" target="_blank">Live Demo</a>
+                            {% endif %}
+                            {% if project.github_url %}
+                                <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">GitHub</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No projects added yet.</p>
+    {% endif %}
+{% endblock %}
