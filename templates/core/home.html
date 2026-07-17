@@ -1,6 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Home | My Portfolio{% endblock %}
+
 {% block content %}
     {% if profile %}
         <div class="text-center">
+        ...
             {% if profile.profile_picture %}
                 <img src="{{ profile.profile_picture.url }}" alt="{{ profile.full_name }}"
                      class="rounded-circle mb-4" width="180" height="180" style="object-fit: cover;">
