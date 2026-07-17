@@ -22,4 +22,26 @@
             <p>No profile has been added yet. Go to the admin dashboard to create one.</p>
         </div>
     {% endif %}
+
+    <hr class="my-5">
+
+    <div>
+        <h2 class="text-center mb-4">My Skills</h2>
+        {% if skills %}
+            <div class="row g-3">
+                {% for skill in skills %}
+                    <div class="col-6 col-md-3">
+                        <div class="card text-center h-100">
+                            <div class="card-body">
+                                <h5 class="card-title mb-1">{{ skill.name }}</h5>
+                                <span class="badge bg-primary">{{ skill.get_proficiency_display }}</span>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-center text-muted">No skills added yet.</p>
+        {% endif %}
+    </div>
 {% endblock %}

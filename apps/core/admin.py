@@ -1,7 +1,12 @@
 from django.contrib import admin
-from .models import Profile
-
-# Register your models here.
+from .models import Profile, Skill
 
 
 admin.site.register(Profile)
+
+
+@admin.register(Skill)
+class SkillAdmin(admin.ModelAdmin):
+    list_display = ['name', 'proficiency', 'order']
+    list_editable = ['proficiency', 'order']
+    ordering = ['order']
