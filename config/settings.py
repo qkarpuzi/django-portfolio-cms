@@ -32,6 +32,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='').split(',')
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -124,3 +125,14 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Portfolio Admin",
+    "site_header": "Portfolio CMS",
+    "site_brand": "Portfolio CMS",
+    "welcome_sign": "Welcome to your Portfolio Dashboard",
+    "copyright": "My Portfolio",
+    "show_sidebar": True,
+    "navigation_expanded": True,
+}
