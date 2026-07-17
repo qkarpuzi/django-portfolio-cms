@@ -12,7 +12,9 @@
                     <div class="card h-100">
                         <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}">
                         <div class="card-body">
-                            <h5 class="card-title">{{ project.title }}</h5>
+                           <h5 class="card-title">
+                                <a href="{% url 'projects:detail' project.slug %}" class="text-decoration-none text-dark">{{ project.title }}</a>
+                            </h5>
                             <p class="card-text">{{ project.short_description }}</p>
                             <div class="mb-2">
                                 {% for tech in project.technologies.all %}

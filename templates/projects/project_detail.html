@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}{{ project.title }} | My Portfolio{% endblock %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'projects:list' %}" class="btn btn-sm btn-outline-secondary">&larr; Back to Projects</a>
+    </div>
+
+    <h1>{{ project.title }}</h1>
+    <p class="lead text-muted">{{ project.short_description }}</p>
+
+    <div class="mb-3">
+        {% for tech in project.technologies.all %}
+            <span class="badge bg-secondary">{{ tech.name }}</span>
+        {% endfor %}
+    </div>
+
+    <div class="mb-4">
+        {% if project.live_url %}
+            <a href="{{ project.live_url }}" class="btn btn-primary" target="_blank">Live Demo</a>
+        {% endif %}
+        {% if project.github_url %}
+            <a href="{{ project.github_url }}" class="btn btn-outline-dark" target="_blank">View on GitHub</a>
+        {% endif %}
+    </div>
+
+    <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="img-fluid rounded mb-4">
+
+    <h3>About this project</h3>
+    <p style="white-space: pre-line;">{{ project.description }}</p>
+
+    {% if project.images.all %}
+        <h3 class="mt-5 mb-3">Screenshots</h3>
+        <div class="row g-3">
+            {% for image in project.images.all %}
+                <div class="col-md-6">
+                    <img src="{{ image.image.url }}" alt="{{ image.caption }}" class="img-fluid rounded">
+                    {% if image.caption %}
+                        <p class="text-muted small mt-1">{{ image.caption }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock %}
