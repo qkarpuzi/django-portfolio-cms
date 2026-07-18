@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib import messages
 from .models import Profile, Skill
+from .forms import ContactForm
 from apps.experience.models import Experience, Education, Certificate
+
 
 
 def home(request):
@@ -25,3 +28,19 @@ def about(request):
         'certificates': certificates,
     }
     return render(request, 'core/about.html', context)
+
+
+def contact(request):
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Thanks for reaching out! I'll get back to you soon.")
+            return redirect('core:contact')
+    else:
+        form = ContactForm()
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'core/contact.html', context)
