@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'apps.projects',
     'apps.services',
     'apps.experience',
+    'apps.blog',
     
     
 ]
@@ -125,6 +126,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+
 
 
 MEDIA_URL = 'media/'

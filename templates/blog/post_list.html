@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Blog | My Portfolio{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-5">Blog</h1>
+
+    {% if posts %}
+        <div class="row g-4">
+            {% for post in posts %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                        {% if post.featured_image %}
+                            <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <a href="{% url 'blog:detail' post.slug %}" class="text-decoration-none text-dark">{{ post.title }}</a>
+                            </h5>
+                            <p class="card-text text-muted">{{ post.excerpt }}</p>
+                            <p class="text-muted small">{{ post.created_at|date:"M d, Y" }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p class="text-center text-muted">No posts published yet.</p>
+    {% endif %}
+{% endblock %}

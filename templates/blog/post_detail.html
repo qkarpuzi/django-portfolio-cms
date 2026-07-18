@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} | My Portfolio{% endblock %}
+
+{% block content %}
+    <div class="mb-4">
+        <a href="{% url 'blog:list' %}" class="btn btn-sm btn-outline-secondary">&larr; Back to Blog</a>
+    </div>
+
+    <h1>{{ post.title }}</h1>
+    <p class="text-muted">
+        {% if post.author %}By {{ post.author.username }} — {% endif %}{{ post.created_at|date:"M d, Y" }}
+    </p>
+
+    {% if post.featured_image %}
+        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded mb-4">
+    {% endif %}
+
+    <div>
+        {{ post.content|safe }}
+    </div>
+{% endblock %}
