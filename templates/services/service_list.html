@@ -3,26 +3,36 @@
 {% block title %}Services | My Portfolio{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-5">Services</h1>
+    <div class="page-header">
+        <div class="container">
+            <span class="section-eyebrow">What I Offer</span>
+            <h1>Services</h1>
+            <p>Here's how I can help bring your project to life.</p>
+        </div>
+    </div>
 
-    {% if services %}
-        <div class="row g-4">
-            {% for service in services %}
-                <div class="col-md-4">
-                    <div class="card h-100 text-center">
-                        <div class="card-body">
-                            {% if service.icon %}
-                                <img src="{{ service.icon.url }}" alt="{{ service.title }}"
-                                     width="56" height="56" class="mb-3" style="object-fit: contain;">
-                            {% endif %}
-                            <h5 class="card-title">{{ service.title }}</h5>
-                            <p class="card-text text-muted">{{ service.description }}</p>
+    <div class="page-content">
+        {% if services %}
+            <div class="row g-4">
+                {% for service in services %}
+                    <div class="col-md-4">
+                        <div class="content-card text-center">
+                            <div class="content-card-body align-items-center">
+                                {% if service.icon %}
+                                    <img src="{{ service.icon.url }}" alt="{{ service.title }}"
+                                         width="56" height="56" class="mb-3" style="object-fit: contain;">
+                                {% endif %}
+                                <h5 class="content-card-title">{{ service.title }}</h5>
+                                <p class="content-card-text">{{ service.description }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-center text-muted">No services added yet.</p>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No services added yet.</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

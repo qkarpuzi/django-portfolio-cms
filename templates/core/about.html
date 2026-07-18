@@ -3,79 +3,80 @@
 {% block title %}About | My Portfolio{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-2">About Me</h1>
-    {% if profile %}
-        <p class="text-center text-muted mb-5">{{ profile.title }}</p>
-    {% endif %}
-
-    <div>
-        <h2 class="mb-4">Experience</h2>
-        {% if experiences %}
-            {% for exp in experiences %}
-                <div class="mb-4 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <h5 class="mb-1">{{ exp.job_title }} — {{ exp.company }}</h5>
-                        <span class="text-muted small">
-                            {{ exp.start_date|date:"M Y" }} –
-                            {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
-                        </span>
-                    </div>
-                    {% if exp.location %}<p class="text-muted small mb-1">{{ exp.location }}</p>{% endif %}
-                    {% if exp.description %}<p class="mb-0">{{ exp.description }}</p>{% endif %}
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-muted">No experience added yet.</p>
-        {% endif %}
+    <div class="page-header">
+        <div class="container">
+            <span class="section-eyebrow">About Me</span>
+            <h1>{% if profile %}{{ profile.full_name }}{% else %}About{% endif %}</h1>
+            {% if profile %}<p>{{ profile.title }}</p>{% endif %}
+        </div>
     </div>
 
-    <hr class="my-5">
+    <div class="page-content">
+        <div class="row g-5">
+            <div class="col-lg-6">
+                <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 2rem;">Experience</h2>
+                {% if experiences %}
+                    {% for exp in experiences %}
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                {{ exp.start_date|date:"M Y" }} –
+                                {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                            </div>
+                            <div class="timeline-title">{{ exp.job_title }}</div>
+                            <div class="timeline-subtitle">{{ exp.company }}{% if exp.location %} — {{ exp.location }}{% endif %}</div>
+                            {% if exp.description %}<p class="text-muted small mb-0">{{ exp.description }}</p>{% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No experience added yet.</p>
+                {% endif %}
+            </div>
 
-    <div>
-        <h2 class="mb-4">Education</h2>
-        {% if education %}
-            {% for edu in education %}
-                <div class="mb-4 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between flex-wrap">
-                        <h5 class="mb-1">{{ edu.degree }} — {{ edu.institution }}</h5>
-                        <span class="text-muted small">
-                            {{ edu.start_date|date:"M Y" }} –
-                            {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"M Y" }}{% endif %}
-                        </span>
-                    </div>
-                    {% if edu.description %}<p class="mb-0">{{ edu.description }}</p>{% endif %}
-                </div>
-            {% endfor %}
-        {% else %}
-            <p class="text-muted">No education added yet.</p>
-        {% endif %}
+            <div class="col-lg-6">
+                <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 2rem;">Education</h2>
+                {% if education %}
+                    {% for edu in education %}
+                        <div class="timeline-item">
+                            <div class="timeline-date">
+                                {{ edu.start_date|date:"M Y" }} –
+                                {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"M Y" }}{% endif %}
+                            </div>
+                            <div class="timeline-title">{{ edu.degree }}</div>
+                            <div class="timeline-subtitle">{{ edu.institution }}</div>
+                            {% if edu.description %}<p class="text-muted small mb-0">{{ edu.description }}</p>{% endif %}
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p class="text-muted">No education added yet.</p>
+                {% endif %}
+            </div>
+        </div>
     </div>
 
-    <hr class="my-5">
-
-    <div>
-        <h2 class="mb-4">Certificates</h2>
-        {% if certificates %}
-            <div class="row g-3">
-                {% for cert in certificates %}
-                    <div class="col-md-6">
-                        <div class="card h-100">
-                            <div class="card-body">
+    {% if certificates %}
+        <section class="section-wrap subtle">
+            <div class="container">
+                <span class="section-eyebrow">Credentials</span>
+                <h2 class="section-heading">Certificates</h2>
+                <div class="row g-3">
+                    {% for cert in certificates %}
+                        <div class="col-md-6">
+                            <div class="cert-card">
                                 {% if cert.image %}
-                                    <img src="{{ cert.image.url }}" alt="{{ cert.title }}" class="img-fluid rounded mb-2" style="max-height: 150px; object-fit: contain;">
+                                    <img src="{{ cert.image.url }}" alt="{{ cert.title }}">
                                 {% endif %}
-                                <h5 class="card-title mb-1">{{ cert.title }}</h5>
-                                <p class="text-muted small mb-2">{{ cert.issuing_organization }} — {{ cert.date_earned|date:"M Y" }}</p>
-                                {% if cert.credential_url %}
-                                    <a href="{{ cert.credential_url }}" class="btn btn-sm btn-outline-primary" target="_blank">View Credential</a>
-                                {% endif %}
+                                <div>
+                                    <div class="timeline-title" style="font-size: 1rem;">{{ cert.title }}</div>
+                                    <div class="text-muted small mb-2">{{ cert.issuing_organization }} — {{ cert.date_earned|date:"M Y" }}</div>
+                                    {% if cert.credential_url %}
+                                        <a href="{{ cert.credential_url }}" class="btn btn-sm btn-outline-primary" target="_blank" rel="noopener">View Credential</a>
+                                    {% endif %}
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                </div>
             </div>
-        {% else %}
-            <p class="text-muted">No certificates added yet.</p>
-        {% endif %}
-    </div>
+        </section>
+    {% endif %}
 {% endblock %}

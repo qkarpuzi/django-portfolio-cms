@@ -1,9 +1,659 @@
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+:root {
+    --color-primary: #0F172A;
+    --color-accent: #2563EB;
+    --color-accent-hover: #1D4ED8;
+    --color-text: #1E293B;
+    --color-text-muted: #64748B;
+    --color-bg-subtle: #F8FAFC;
+    --color-border: #E2E8F0;
+
+    --font-body: 'Inter', -apple-system, sans-serif;
+    --max-width: 1140px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    font-family: var(--font-body);
+    color: var(--color-text);
+    background-color: #ffffff;
 }
 
 main {
     flex: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+}
+
+.lead {
+    font-weight: 400;
+    color: var(--color-text-muted);
+}
+
+.text-muted {
+    color: var(--color-text-muted) !important;
+}
+
+p {
+    line-height: 1.75;
+}
+
+/* ============================================================
+   LAYOUT HELPERS
+   Every full-bleed section (hero, page-header, section-wrap)
+   uses this pattern: outer element = no side padding + full
+   width background, inner .container = centered, max-width,
+   with side padding. This is what makes dark banners stretch
+   edge-to-edge while their text still lines up with content below.
+   ============================================================ */
+.hero,
+.page-header,
+.section-wrap {
+    width: 100%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.hero > .container,
+.page-header > .container,
+.section-wrap > .container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.page-content {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 3rem 1rem;
+}
+
+/* ============================================================
+   NAVBAR
+   ============================================================ */
+.navbar {
+    background-color: var(--color-primary) !important;
+    padding-top: 1.1rem;
+    padding-bottom: 1.1rem;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.3rem;
+    letter-spacing: -0.02em;
+}
+
+.navbar-nav .nav-link {
+    font-weight: 500;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    transition: color 0.15s ease;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-primary {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    font-weight: 600;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.15s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    transform: translateY(-1px);
+}
+
+.btn-outline-secondary,
+.btn-outline-dark,
+.btn-outline-primary {
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.btn-lg {
+    padding: 0.7rem 1.75rem;
+}
+
+/* ============================================================
+   HERO SECTION
+   ============================================================ */
+.hero {
+    padding-top: 5rem;
+    padding-bottom: 6rem;
+}
+
+.hero-eyebrow {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    background-color: #EFF6FF;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-heading {
+    font-size: clamp(2.5rem, 5vw, 3.75rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+}
+
+.hero-heading .accent {
+    color: var(--color-accent);
+}
+
+.hero-subtext {
+    font-size: 1.15rem;
+    color: var(--color-text-muted);
+    max-width: 480px;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+}
+
+.hero-photo-wrap {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 340px;
+}
+
+.hero-photo-wrap::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 340px;
+    height: 340px;
+    background: linear-gradient(135deg, var(--color-accent), #7C3AED);
+    border-radius: 32px;
+    transform: translate(-50%, -50%) rotate(8deg);
+    opacity: 0.12;
+    z-index: 0;
+}
+
+.hero-photo {
+    position: relative;
+    z-index: 1;
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 24px;
+    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+}
+
+.hero-stats {
+    display: flex;
+    gap: 2.5rem;
+    margin-top: 3rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--color-border);
+    flex-wrap: wrap;
+}
+
+.hero-stat-number {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--color-primary);
+    letter-spacing: -0.02em;
+}
+
+.hero-stat-label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+/* ============================================================
+   PAGE HEADER (dark banner used on list/detail pages)
+   ============================================================ */
+.page-header {
+    background-color: var(--color-primary);
+    padding-top: 4rem;
+    padding-bottom: 3rem;
+    margin-bottom: 3rem;
+}
+
+.page-header .section-eyebrow {
+    color: #93C5FD;
+}
+
+.page-header h1 {
+    color: #ffffff;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+}
+
+.page-header p {
+    color: #CBD5E1;
+    font-size: 1.05rem;
+    max-width: 560px;
+    margin-bottom: 0;
+}
+
+/* ============================================================
+   SECTION HEADINGS (used inside section-wrap blocks)
+   ============================================================ */
+.section-eyebrow {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.75rem;
+}
+
+.section-heading {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+}
+
+.section-wrap {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+
+.section-wrap.subtle {
+    background-color: var(--color-bg-subtle);
+}
+
+/* ============================================================
+   SKILLS - pill list
+   ============================================================ */
+.skill-pill {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    background-color: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    transition: all 0.2s ease;
+    height: 100%;
+}
+
+.skill-pill:hover {
+    border-color: var(--color-accent);
+    box-shadow: 0 10px 25px -8px rgba(37, 99, 235, 0.2);
+    transform: translateY(-2px);
+}
+
+.skill-pill img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+.skill-pill-name {
+    font-weight: 600;
+    color: var(--color-primary);
+    font-size: 0.95rem;
+    margin-bottom: 0.1rem;
+}
+
+.skill-pill-level {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* ============================================================
+   CONTENT CARDS (projects / services / blog)
+   ============================================================ */
+.content-card {
+    border: 1px solid var(--color-border);
+    border-radius: 14px;
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.25s ease;
+    background: #fff;
+}
+
+.content-card:hover {
+    box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.15);
+    transform: translateY(-4px);
+}
+
+.content-card-img {
+    display: block;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-color: var(--color-bg-subtle);
+}
+
+.content-card-body {
+    padding: 1.5rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.content-card-title {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.15rem;
+    margin-bottom: 0.6rem;
+}
+
+.content-card-title a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.content-card-title a:hover {
+    color: var(--color-accent);
+}
+
+.content-card-text {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    flex: 1;
+}
+
+.content-card-meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.tech-pill {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    background-color: #EFF6FF;
+    padding: 0.3rem 0.7rem;
+    border-radius: 100px;
+    margin: 0 0.35rem 0.35rem 0;
+}
+
+/* ============================================================
+   TIMELINE (About page)
+   ============================================================ */
+.timeline-item {
+    position: relative;
+    padding-left: 2rem;
+    padding-bottom: 2.5rem;
+    border-left: 2px solid var(--color-border);
+}
+
+.timeline-item:last-child {
+    border-left-color: transparent;
+    padding-bottom: 0;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 4px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+    border: 3px solid #fff;
+    box-shadow: 0 0 0 2px var(--color-accent);
+}
+
+.timeline-date {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.35rem;
+}
+
+.timeline-title {
+    font-weight: 700;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    margin-bottom: 0.2rem;
+}
+
+.timeline-subtitle {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.6rem;
+}
+
+/* ============================================================
+   CERTIFICATES
+   ============================================================ */
+.cert-card {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    height: 100%;
+    transition: box-shadow 0.2s ease;
+}
+
+.cert-card:hover {
+    box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.1);
+}
+
+.cert-card img {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    flex-shrink: 0;
+    display: block;
+}
+
+/* ============================================================
+   CONTACT PAGE
+   ============================================================ */
+.contact-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: 16px;
+    padding: 2.5rem;
+    box-shadow: 0 20px 50px -20px rgba(15, 23, 42, 0.15);
+}
+
+.form-control {
+    border-radius: 8px;
+    border-color: var(--color-border);
+    padding: 0.65rem 0.9rem;
+}
+
+.form-control:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-primary);
+    margin-bottom: 0.4rem;
+}
+
+/* ============================================================
+   EMPTY STATES
+   ============================================================ */
+.empty-state {
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--color-text-muted);
+}
+
+/* ============================================================
+   CARDS (generic Bootstrap .card override, used anywhere
+   we haven't switched to .content-card yet)
+   ============================================================ */
+.card {
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+    transform: translateY(-2px);
+}
+
+.card-title {
+    font-weight: 600;
+    color: var(--color-primary);
+}
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+.badge.bg-primary {
+    background-color: var(--color-accent) !important;
+    font-weight: 500;
+    padding: 0.4em 0.8em;
+}
+
+.badge.bg-secondary {
+    background-color: var(--color-bg-subtle) !important;
+    color: var(--color-text-muted) !important;
+    border: 1px solid var(--color-border);
+    font-weight: 500;
+    padding: 0.4em 0.8em;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+    background-color: var(--color-primary);
+    padding-top: 3.5rem;
+    color: #94A3B8;
+}
+
+.footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 2rem;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 767px) {
+    .footer-top {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+}
+
+.footer-logo {
+    display: inline-block;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.75rem;
+}
+
+.footer-tagline {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    max-width: 280px;
+    margin-bottom: 0;
+}
+
+.footer-heading {
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 1.1rem;
+}
+
+.footer-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-links a {
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin-bottom: 0.65rem;
+    transition: color 0.15s ease;
+    width: fit-content;
+}
+
+.footer-links a:hover {
+    color: #ffffff;
+}
+
+.footer-social-icons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+.footer-social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.06);
+    color: #94A3B8;
+    transition: all 0.2s ease;
+}
+
+.footer-social-icons a:hover {
+    background-color: var(--color-accent);
+    color: #ffffff;
+    transform: translateY(-2px);
+}
+
+.footer-social-icons svg {
+    width: 17px;
+    height: 17px;
+}
+
+.footer-bottom {
+    padding: 1.5rem 0;
+    text-align: center;
+}
+
+.footer-bottom p {
+    font-size: 0.85rem;
+    color: #64748B;
+    margin-bottom: 0;
 }

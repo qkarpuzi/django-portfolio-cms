@@ -19,16 +19,24 @@
         {% endif %}
     {% endif %}
 
-    <!-- Bootstrap 5 CSS -->
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Bootstrap 5 CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Our custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
     {% block extra_css %}{% endblock %}
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow-sm">
         <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">My Portfolio</a>
+            <a class="navbar-brand" href="{% url 'core:home' %}">Qefser Karpuzi</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -45,23 +53,58 @@
         </div>
     </nav>
 
-    <main class="container my-5">
+    <main>
         {% block content %}
         {% endblock %}
     </main>
 
-<footer class="bg-dark text-white text-center py-4 mt-5">
+<footer class="site-footer">
         <div class="container">
-            {% if social_links %}
-                <div class="mb-3">
-                    {% for link in social_links %}
-                        <a href="{{ link.url }}" class="text-white mx-2" target="_blank" rel="noopener">
-                            {{ link.get_platform_display }}
-                        </a>
-                    {% endfor %}
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <a href="{% url 'core:home' %}" class="footer-logo">My Portfolio</a>
+                    <p class="footer-tagline">Building clean, reliable software — one project at a time.</p>
                 </div>
-            {% endif %}
-            <p class="mb-0">&copy; {% now "Y" %} My Portfolio. All rights reserved.</p>
+
+                <div class="footer-links">
+                    <h6 class="footer-heading">Navigate</h6>
+                    <a href="{% url 'core:home' %}">Home</a>
+                    <a href="{% url 'core:about' %}">About</a>
+                    <a href="{% url 'projects:list' %}">Projects</a>
+                    <a href="{% url 'services:list' %}">Services</a>
+                    <a href="{% url 'blog:list' %}">Blog</a>
+                    <a href="{% url 'core:contact' %}">Contact</a>
+                </div>
+
+                {% if social_links %}
+                    <div class="footer-social">
+                        <h6 class="footer-heading">Connect</h6>
+                        <div class="footer-social-icons">
+                            {% for link in social_links %}
+                                <a href="{{ link.url }}" target="_blank" rel="noopener" aria-label="{{ link.get_platform_display }}">
+                                    {% if link.platform == 'github' %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.56A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                                    {% elif link.platform == 'linkedin' %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+                                    {% elif link.platform == 'twitter' %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.24 2H21l-6.5 7.43L22.5 22h-6.9l-5.4-6.9L3.9 22H1.1l6.96-7.95L1 2h7.06l4.9 6.3L18.24 2zm-1.2 18.2h1.9L7.03 3.7H5l12.04 16.5z"/></svg>
+                                    {% elif link.platform == 'instagram' %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 0 1-1.38-.9 3.72 3.72 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zm0-2.16C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.31-1.46.72-2.13 1.38C1.35 2.68.94 3.35.63 4.14c-.3.76-.5 1.64-.56 2.91C.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.31.79.72 1.46 1.38 2.13.67.66 1.34 1.07 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.31 1.46-.72 2.13-1.38.66-.67 1.07-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.88 5.88 0 0 0-1.38-2.13A5.88 5.88 0 0 0 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.4-10.4a1.44 1.44 0 1 1-2.88 0 1.44 1.44 0 0 1 2.88 0z"/></svg>
+                                    {% elif link.platform == 'youtube' %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.56A3.02 3.02 0 0 0 .5 6.2 31.6 31.6 0 0 0 0 12a31.6 31.6 0 0 0 .5 5.8 3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.56a3.02 3.02 0 0 0 2.12-2.14A31.6 31.6 0 0 0 24 12a31.6 31.6 0 0 0-.5-5.8zM9.6 15.6V8.4l6.4 3.6-6.4 3.6z"/></svg>
+                                    {% else %}
+                                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7A5 5 0 0 0 7 17h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4a5 5 0 0 0 0-10z"/></svg>
+                                    {% endif %}
+                                </a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; {% now "Y" %} {% if profile %}{{ profile.full_name }}{% else %}My Portfolio{% endif %}. All rights reserved.</p>
+            </div>
         </div>
     </footer>
 

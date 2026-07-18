@@ -3,18 +3,20 @@ from django.contrib import messages
 from .models import Profile, Skill
 from .forms import ContactForm
 from apps.experience.models import Experience, Education, Certificate
-
+from apps.projects.models import Project
 
 
 def home(request):
     profile = Profile.objects.first()
     skills = Skill.objects.all()
+    projects_count = Project.objects.count()
     context = {
         'profile': profile,
         'skills': skills,
+        'projects_count': projects_count,
+        'skills_count': skills.count(),
     }
     return render(request, 'core/home.html', context)
-
 
 def about(request):
     profile = Profile.objects.first()

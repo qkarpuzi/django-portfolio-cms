@@ -3,28 +3,39 @@
 {% block title %}Blog | My Portfolio{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-5">Blog</h1>
+    <div class="page-header">
+        <div class="container">
+            <span class="section-eyebrow">Writing</span>
+            <h1>Blog</h1>
+            <p>Thoughts on development, engineering, and building things well.</p>
+        </div>
+    </div>
 
-    {% if posts %}
-        <div class="row g-4">
-            {% for post in posts %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        {% if post.featured_image %}
-                            <img src="{{ post.featured_image.url }}" class="card-img-top" alt="{{ post.title }}">
-                        {% endif %}
-                        <div class="card-body">
-                            <h5 class="card-title">
-                                <a href="{% url 'blog:detail' post.slug %}" class="text-decoration-none text-dark">{{ post.title }}</a>
-                            </h5>
-                            <p class="card-text text-muted">{{ post.excerpt }}</p>
-                            <p class="text-muted small">{{ post.created_at|date:"M d, Y" }}</p>
+    <div class="page-content">
+        {% if posts %}
+            <div class="row g-4">
+                {% for post in posts %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="content-card">
+                            {% if post.featured_image %}
+                                <img src="{{ post.featured_image.url }}" class="content-card-img" alt="{{ post.title }}">
+                            {% endif %}
+                            <div class="content-card-body">
+                                <div class="content-card-meta mb-2">{{ post.created_at|date:"M d, Y" }}</div>
+                                <h5 class="content-card-title">
+                                    <a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a>
+                                </h5>
+                                <p class="content-card-text">{{ post.excerpt }}</p>
+                                <a href="{% url 'blog:detail' post.slug %}" class="btn btn-outline-dark btn-sm">Read More &rarr;</a>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-center text-muted">No posts published yet.</p>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No posts published yet.</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}

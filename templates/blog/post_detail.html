@@ -3,20 +3,25 @@
 {% block title %}{{ post.title }} | My Portfolio{% endblock %}
 
 {% block content %}
-    <div class="mb-4">
-        <a href="{% url 'blog:list' %}" class="btn btn-sm btn-outline-secondary">&larr; Back to Blog</a>
+    <div class="page-header">
+        <div class="container">
+            <a href="{% url 'blog:list' %}" class="text-decoration-none text-white-50 d-inline-block mb-3">&larr; Back to Blog</a>
+            <h1>{{ post.title }}</h1>
+            <p>{% if post.author %}By {{ post.author.username }} — {% endif %}{{ post.created_at|date:"M d, Y" }}</p>
+        </div>
     </div>
 
-    <h1>{{ post.title }}</h1>
-    <p class="text-muted">
-        {% if post.author %}By {{ post.author.username }} — {% endif %}{{ post.created_at|date:"M d, Y" }}
-    </p>
+    <div class="page-content">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                {% if post.featured_image %}
+                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded-4 mb-5 shadow-sm">
+                {% endif %}
 
-    {% if post.featured_image %}
-        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded mb-4">
-    {% endif %}
-
-    <div>
-        {{ post.content|safe }}
+                <div style="font-size: 1.05rem; line-height: 1.8;">
+                    {{ post.content|safe }}
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

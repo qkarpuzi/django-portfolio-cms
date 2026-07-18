@@ -4,79 +4,86 @@
 
 {% block content %}
     {% if profile %}
-        <div class="text-center">
-            {% if profile.profile_picture %}
-                <img src="{{ profile.profile_picture.url }}" alt="{{ profile.full_name }}"
-                     class="rounded-circle mb-4" width="180" height="180" style="object-fit: cover;">
-            {% endif %}
+        <section class="hero">
+            <div class="container">
+                <div class="row align-items-center g-5">
+                    <div class="col-lg-7">
+                        <span class="hero-eyebrow">Available for opportunities</span>
+                        <h1 class="hero-heading">
+                            Hi, I'm {{ profile.full_name }} —<br>
+                            <span class="accent">{{ profile.title }}</span>
+                        </h1>
+                        <p class="hero-subtext">{{ profile.bio|truncatewords:35 }}</p>
 
-            <h1 class="display-4">Hi, I'm {{ profile.full_name }}</h1>
-            <p class="lead text-muted">{{ profile.title }}</p>
-            <p class="mx-auto" style="max-width: 600px;">{{ profile.bio }}</p>
+                        <div class="d-flex gap-3 flex-wrap">
+                            <a href="{% url 'projects:list' %}" class="btn btn-primary btn-lg">View My Work</a>
+                            <a href="{% url 'core:contact' %}" class="btn btn-outline-dark btn-lg">Get In Touch</a>
+                            {% if profile.resume %}
+                                <a href="{{ profile.resume.url }}" class="btn btn-link text-decoration-none fw-semibold" download>
+                                    Download Resume &darr;
+                                </a>
+                            {% endif %}
+                        </div>
 
-            {% if profile.resume %}
-                <div class="mt-4">
-                    <a href="{{ profile.resume.url }}" class="btn btn-primary" download>
-                        Download Resume
-                    </a>
+                        <div class="hero-stats">
+                            <div>
+                                <div class="hero-stat-number">{{ experience_years|default:"2" }}+</div>
+                                <div class="hero-stat-label">Years Experience</div>
+                            </div>
+                            {% if projects_count %}
+                            <div>
+                                <div class="hero-stat-number">{{ projects_count }}</div>
+                                <div class="hero-stat-label">Projects Delivered</div>
+                            </div>
+                            {% endif %}
+                            {% if skills_count %}
+                            <div>
+                                <div class="hero-stat-number">{{ skills_count }}</div>
+                                <div class="hero-stat-label">Technologies</div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if profile.profile_picture %}
+                        <div class="col-lg-5">
+                            <div class="hero-photo-wrap">
+                                <img src="{{ profile.profile_picture.url }}" alt="{{ profile.full_name }}" class="hero-photo">
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
-            {% endif %}
-        </div>
+            </div>
+        </section>
     {% else %}
-        <div class="text-center text-muted">
+        <div class="text-center text-muted py-5">
             <p>No profile has been added yet. Go to the admin dashboard to create one.</p>
         </div>
     {% endif %}
 
-    <hr class="my-5">
-
-    <div>
-        <h2 class="text-center mb-4">My Skills</h2>
-        {% if skills %}
-            <div class="row g-3">
-                {% for skill in skills %}
-                    <div class="col-6 col-md-3">
-                        <div class="card text-center h-100">
-                            <div class="card-body">
+    <section class="section-wrap subtle">
+        <div class="container">
+            <span class="section-eyebrow">What I Work With</span>
+            <h2 class="section-heading">Skills &amp; Technologies</h2>
+            {% if skills %}
+                <div class="row g-3">
+                    {% for skill in skills %}
+                        <div class="col-6 col-md-3">
+                            <div class="skill-pill">
                                 {% if skill.icon %}
-                                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }}"
-                                         width="48" height="48" class="mb-2" style="object-fit: contain;">
+                                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
                                 {% endif %}
-                                <h5 class="card-title mb-1">{{ skill.name }}</h5>
-                                <span class="badge bg-primary">{{ skill.get_proficiency_display }}</span>
+                                <div>
+                                    <div class="skill-pill-name">{{ skill.name }}</div>
+                                    <div class="skill-pill-level">{{ skill.get_proficiency_display }}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-center text-muted">No skills added yet.</p>
-        {% endif %}
-    </div>
-
-    <hr class="my-5">
-
-    <div>
-        <h2 class="text-center mb-4">Services</h2>
-        {% if services %}
-            <div class="row g-4">
-                {% for service in services %}
-                    <div class="col-md-4">
-                        <div class="card h-100 text-center">
-                            <div class="card-body">
-                                {% if service.icon %}
-                                    <img src="{{ service.icon.url }}" alt="{{ service.title }}"
-                                         width="56" height="56" class="mb-3" style="object-fit: contain;">
-                                {% endif %}
-                                <h5 class="card-title">{{ service.title }}</h5>
-                                <p class="card-text text-muted">{{ service.description }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        {% else %}
-            <p class="text-center text-muted">No services added yet.</p>
-        {% endif %}
-    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <p class="text-muted">No skills added yet.</p>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}

@@ -3,36 +3,41 @@
 {% block title %}Projects | My Portfolio{% endblock %}
 
 {% block content %}
-    <h1 class="text-center mb-5">My Projects</h1>
+    <div class="page-header">
+        <div class="container">
+            <span class="section-eyebrow">Portfolio</span>
+            <h1>Selected Projects</h1>
+            <p>A collection of work I've built — from full-stack applications to backend systems.</p>
+        </div>
+    </div>
 
-    {% if projects %}
-        <div class="row g-4">
-            {% for project in projects %}
-                <div class="col-md-6 col-lg-4">
-                    <div class="card h-100">
-                        <img src="{{ project.thumbnail.url }}" class="card-img-top" alt="{{ project.title }}">
-                        <div class="card-body">
-                           <h5 class="card-title">
-                                <a href="{% url 'projects:detail' project.slug %}" class="text-decoration-none text-dark">{{ project.title }}</a>
-                            </h5>
-                            <p class="card-text">{{ project.short_description }}</p>
-                            <div class="mb-2">
-                                {% for tech in project.technologies.all %}
-                                    <span class="badge bg-secondary">{{ tech.name }}</span>
-                                {% endfor %}
+    <div class="page-content">
+        {% if projects %}
+            <div class="row g-4">
+                {% for project in projects %}
+                    <div class="col-md-6 col-lg-4">
+                        <div class="content-card">
+                            <img src="{{ project.thumbnail.url }}" class="content-card-img" alt="{{ project.title }}">
+                            <div class="content-card-body">
+                                <h5 class="content-card-title">
+                                    <a href="{% url 'projects:detail' project.slug %}">{{ project.title }}</a>
+                                </h5>
+                                <p class="content-card-text">{{ project.short_description }}</p>
+                                <div class="mb-3">
+                                    {% for tech in project.technologies.all %}
+                                        <span class="tech-pill">{{ tech.name }}</span>
+                                    {% endfor %}
+                                </div>
+                                <a href="{% url 'projects:detail' project.slug %}" class="btn btn-outline-dark btn-sm">View Case Study &rarr;</a>
                             </div>
-                            {% if project.live_url %}
-                                <a href="{{ project.live_url }}" class="btn btn-sm btn-primary" target="_blank">Live Demo</a>
-                            {% endif %}
-                            {% if project.github_url %}
-                                <a href="{{ project.github_url }}" class="btn btn-sm btn-outline-dark" target="_blank">GitHub</a>
-                            {% endif %}
                         </div>
                     </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <p class="text-center text-muted">No projects added yet.</p>
-    {% endif %}
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="empty-state">
+                <p>No projects added yet.</p>
+            </div>
+        {% endif %}
+    </div>
 {% endblock %}
