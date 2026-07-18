@@ -1,7 +1,9 @@
 from django.contrib import admin
 from .models import Profile, Skill, ContactMessage
+from .models import Profile, Skill, ContactMessage, SEOSettings
 
 admin.site.register(Profile)
+admin.site.register(SEOSettings)
 
 
 @admin.register(Skill)

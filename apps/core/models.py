@@ -50,3 +50,17 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return f"{self.subject} — from {self.name}"
+    
+
+class SEOSettings(models.Model):
+    site_title = models.CharField(max_length=100, default="My Portfolio")
+    meta_description = models.CharField(max_length=300, help_text="Shown in search engine results (recommended: under 160 characters)")
+    meta_keywords = models.CharField(max_length=300, blank=True, help_text="Comma-separated keywords (optional, low SEO impact today)")
+    og_image = models.ImageField(upload_to='seo/', blank=True, null=True, help_text="Image shown when your site is shared on social media (recommended: 1200x630px)")
+
+    class Meta:
+        verbose_name = "SEO Settings"
+        verbose_name_plural = "SEO Settings"
+
+    def __str__(self):
+        return "SEO Settings"
