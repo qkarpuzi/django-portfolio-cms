@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}About | My Portfolio{% endblock %}
+
+{% block content %}
+    <h1 class="text-center mb-2">About Me</h1>
+    {% if profile %}
+        <p class="text-center text-muted mb-5">{{ profile.title }}</p>
+    {% endif %}
+
+    <div>
+        <h2 class="mb-4">Experience</h2>
+        {% if experiences %}
+            {% for exp in experiences %}
+                <div class="mb-4 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <h5 class="mb-1">{{ exp.job_title }} — {{ exp.company }}</h5>
+                        <span class="text-muted small">
+                            {{ exp.start_date|date:"M Y" }} –
+                            {% if exp.is_current %}Present{% else %}{{ exp.end_date|date:"M Y" }}{% endif %}
+                        </span>
+                    </div>
+                    {% if exp.location %}<p class="text-muted small mb-1">{{ exp.location }}</p>{% endif %}
+                    {% if exp.description %}<p class="mb-0">{{ exp.description }}</p>{% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No experience added yet.</p>
+        {% endif %}
+    </div>
+
+    <hr class="my-5">
+
+    <div>
+        <h2 class="mb-4">Education</h2>
+        {% if education %}
+            {% for edu in education %}
+                <div class="mb-4 pb-3 border-bottom">
+                    <div class="d-flex justify-content-between flex-wrap">
+                        <h5 class="mb-1">{{ edu.degree }} — {{ edu.institution }}</h5>
+                        <span class="text-muted small">
+                            {{ edu.start_date|date:"M Y" }} –
+                            {% if edu.is_current %}Present{% else %}{{ edu.end_date|date:"M Y" }}{% endif %}
+                        </span>
+                    </div>
+                    {% if edu.description %}<p class="mb-0">{{ edu.description }}</p>{% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted">No education added yet.</p>
+        {% endif %}
+    </div>
+{% endblock %}
