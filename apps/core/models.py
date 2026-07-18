@@ -64,3 +64,24 @@ class SEOSettings(models.Model):
 
     def __str__(self):
         return "SEO Settings"
+    
+
+class SocialLink(models.Model):
+    PLATFORM_CHOICES = [
+        ('github', 'GitHub'),
+        ('linkedin', 'LinkedIn'),
+        ('twitter', 'Twitter / X'),
+        ('instagram', 'Instagram'),
+        ('youtube', 'YouTube'),
+        ('other', 'Other'),
+    ]
+
+    platform = models.CharField(max_length=20, choices=PLATFORM_CHOICES)
+    url = models.URLField()
+    order = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.get_platform_display()

@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Profile, Skill, ContactMessage
 from .models import Profile, Skill, ContactMessage, SEOSettings
+from .models import Profile, Skill, ContactMessage, SEOSettings, SocialLink
 
 admin.site.register(Profile)
 admin.site.register(SEOSettings)
@@ -19,3 +20,8 @@ class ContactMessageAdmin(admin.ModelAdmin):
     list_filter = ['is_read']
     list_editable = ['is_read']
     readonly_fields = ['name', 'email', 'subject', 'message', 'created_at']
+
+@admin.register(SocialLink)
+class SocialLinkAdmin(admin.ModelAdmin):
+    list_display = ['platform', 'url', 'order']
+    list_editable = ['order']

@@ -49,8 +49,17 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-dark text-white text-center py-4 mt-5">
+<footer class="bg-dark text-white text-center py-4 mt-5">
         <div class="container">
+            {% if social_links %}
+                <div class="mb-3">
+                    {% for link in social_links %}
+                        <a href="{{ link.url }}" class="text-white mx-2" target="_blank" rel="noopener">
+                            {{ link.get_platform_display }}
+                        </a>
+                    {% endfor %}
+                </div>
+            {% endif %}
             <p class="mb-0">&copy; {% now "Y" %} My Portfolio. All rights reserved.</p>
         </div>
     </footer>
