@@ -36,3 +36,17 @@ class Education(models.Model):
     @property
     def is_current(self):
         return self.end_date is None
+    
+
+class Certificate(models.Model):
+    title = models.CharField(max_length=150)
+    issuing_organization = models.CharField(max_length=150)
+    date_earned = models.DateField()
+    credential_url = models.URLField(blank=True, help_text="Link to verify this certificate, if available")
+    image = models.ImageField(upload_to='certificates/', blank=True, null=True)
+
+    class Meta:
+        ordering = ['-date_earned']
+
+    def __str__(self):
+        return self.title

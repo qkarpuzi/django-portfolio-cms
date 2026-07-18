@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Profile, Skill
-from apps.experience.models import Experience, Education
+from apps.experience.models import Experience, Education, Certificate
 
 
 def home(request):
@@ -17,9 +17,11 @@ def about(request):
     profile = Profile.objects.first()
     experiences = Experience.objects.all()
     education = Education.objects.all()
+    certificates = Certificate.objects.all()
     context = {
         'profile': profile,
         'experiences': experiences,
         'education': education,
+        'certificates': certificates,
     }
     return render(request, 'core/about.html', context)

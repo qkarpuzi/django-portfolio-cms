@@ -50,4 +50,32 @@
             <p class="text-muted">No education added yet.</p>
         {% endif %}
     </div>
+
+    <hr class="my-5">
+
+    <div>
+        <h2 class="mb-4">Certificates</h2>
+        {% if certificates %}
+            <div class="row g-3">
+                {% for cert in certificates %}
+                    <div class="col-md-6">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                {% if cert.image %}
+                                    <img src="{{ cert.image.url }}" alt="{{ cert.title }}" class="img-fluid rounded mb-2" style="max-height: 150px; object-fit: contain;">
+                                {% endif %}
+                                <h5 class="card-title mb-1">{{ cert.title }}</h5>
+                                <p class="text-muted small mb-2">{{ cert.issuing_organization }} — {{ cert.date_earned|date:"M Y" }}</p>
+                                {% if cert.credential_url %}
+                                    <a href="{{ cert.credential_url }}" class="btn btn-sm btn-outline-primary" target="_blank">View Credential</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p class="text-muted">No certificates added yet.</p>
+        {% endif %}
+    </div>
 {% endblock %}
