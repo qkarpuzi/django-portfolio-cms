@@ -4,6 +4,7 @@
 :root {
     --color-primary: #0F172A;
     --color-accent: #2563EB;
+    --color-accent-2: #7C3AED;
     --color-accent-hover: #1D4ED8;
     --color-text: #1E293B;
     --color-text-muted: #64748B;
@@ -11,7 +12,17 @@
     --color-border: #E2E8F0;
 
     --font-body: 'Inter', -apple-system, sans-serif;
+    --font-display: 'Fraunces', 'Georgia', serif;
     --max-width: 1140px;
+
+    --radius-sm: 8px;
+    --radius-md: 14px;
+    --radius-lg: 20px;
+    --radius-xl: 28px;
+
+    --shadow-sm: 0 4px 14px -6px rgba(15, 23, 42, 0.10);
+    --shadow-md: 0 16px 36px -14px rgba(15, 23, 42, 0.16);
+    --shadow-lg: 0 30px 60px -20px rgba(15, 23, 42, 0.22);
 }
 
 /* ============================================================
@@ -49,13 +60,14 @@ p {
     line-height: 1.75;
 }
 
+em, .accent-italic {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 500;
+}
+
 /* ============================================================
    LAYOUT HELPERS
-   Every full-bleed section (hero, page-header, section-wrap)
-   uses this pattern: outer element = no side padding + full
-   width background, inner .container = centered, max-width,
-   with side padding. This is what makes dark banners stretch
-   edge-to-edge while their text still lines up with content below.
    ============================================================ */
 .hero,
 .page-header,
@@ -81,22 +93,48 @@ p {
 }
 
 /* ============================================================
+   SCROLL REVEAL (opt-in via .reveal on any element)
+   ============================================================ */
+.reveal {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.in-view {
+    opacity: 1;
+    transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ============================================================
    NAVBAR
    ============================================================ */
 .navbar {
-    background-color: var(--color-primary) !important;
+    background-color: rgba(15, 23, 42, 0.92) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     padding-top: 1.1rem;
     padding-bottom: 1.1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: box-shadow 0.2s ease;
+}
+
+.navbar.is-scrolled {
+    box-shadow: var(--shadow-sm);
 }
 
 .navbar-brand {
-    font-weight: 700;
-    font-size: 1.3rem;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 1.35rem;
+    letter-spacing: -0.01em;
 }
 
 .navbar-nav .nav-link {
     font-weight: 500;
+    font-size: 0.93rem;
     padding-left: 1rem !important;
     padding-right: 1rem !important;
     transition: color 0.15s ease;
@@ -109,8 +147,8 @@ p {
     background-color: var(--color-accent);
     border-color: var(--color-accent);
     font-weight: 600;
-    padding: 0.6rem 1.5rem;
-    border-radius: 8px;
+    padding: 0.65rem 1.6rem;
+    border-radius: var(--radius-sm);
     transition: all 0.15s ease;
 }
 
@@ -118,50 +156,92 @@ p {
     background-color: var(--color-accent-hover);
     border-color: var(--color-accent-hover);
     transform: translateY(-1px);
+    box-shadow: var(--shadow-sm);
 }
 
 .btn-outline-secondary,
 .btn-outline-dark,
 .btn-outline-primary {
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     font-weight: 600;
 }
 
 .btn-lg {
-    padding: 0.7rem 1.75rem;
+    padding: 0.75rem 1.85rem;
+}
+
+/* Refined text link with animated arrow — for secondary CTAs */
+.link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s ease, color 0.2s ease;
+}
+.link-arrow svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.2s ease;
+}
+.link-arrow:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+.link-arrow:hover svg {
+    transform: translateX(3px);
 }
 
 /* ============================================================
    HERO SECTION
    ============================================================ */
 .hero {
-    padding-top: 5rem;
-    padding-bottom: 6rem;
+    padding-top: 5.5rem;
+    padding-bottom: 6.5rem;
+    position: relative;
+    overflow: hidden;
 }
 
-.hero-eyebrow {
-    display: inline-block;
-    font-size: 0.85rem;
+.hero-eyebrow,
+.kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
     font-weight: 600;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--color-accent);
-    background-color: #EFF6FF;
-    padding: 0.4rem 0.9rem;
-    border-radius: 100px;
     margin-bottom: 1.5rem;
+}
+
+.hero-eyebrow::before,
+.kicker::before {
+    content: "";
+    display: inline-block;
+    width: 18px;
+    height: 1.5px;
+    background: var(--color-accent);
 }
 
 .hero-heading {
-    font-size: clamp(2.5rem, 5vw, 3.75rem);
-    font-weight: 800;
-    line-height: 1.1;
-    letter-spacing: -0.03em;
+    font-family: var(--font-display);
+    font-size: clamp(2.6rem, 5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.01em;
     margin-bottom: 1.5rem;
+    color: var(--color-primary);
 }
 
 .hero-heading .accent {
     color: var(--color-accent);
+    font-style: italic;
+    font-weight: 500;
 }
 
 .hero-subtext {
@@ -177,21 +257,37 @@ p {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 340px;
+    min-height: 360px;
 }
 
+/* soft blurred gradient blob instead of a hard rotated square */
 .hero-photo-wrap::before {
     content: "";
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 340px;
-    height: 340px;
-    background: linear-gradient(135deg, var(--color-accent), #7C3AED);
-    border-radius: 32px;
-    transform: translate(-50%, -50%) rotate(8deg);
-    opacity: 0.12;
+    width: 380px;
+    height: 380px;
+    background: linear-gradient(135deg, var(--color-accent), var(--color-accent-2));
+    border-radius: 50% 45% 55% 50% / 50% 55% 45% 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(38px);
+    opacity: 0.28;
     z-index: 0;
+}
+
+/* small dot texture, offset behind the photo — quiet, not decorative noise */
+.hero-photo-wrap::after {
+    content: "";
+    position: absolute;
+    bottom: 6%;
+    right: 6%;
+    width: 96px;
+    height: 96px;
+    background-image: radial-gradient(var(--color-border) 1.5px, transparent 1.5px);
+    background-size: 12px 12px;
+    z-index: 0;
+    opacity: 0.9;
 }
 
 .hero-photo {
@@ -200,8 +296,9 @@ p {
     width: 320px;
     height: 320px;
     object-fit: cover;
-    border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .hero-stats {
@@ -214,10 +311,11 @@ p {
 }
 
 .hero-stat-number {
-    font-size: 1.75rem;
-    font-weight: 800;
+    font-family: var(--font-display);
+    font-size: 1.9rem;
+    font-weight: 600;
     color: var(--color-primary);
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
 }
 
 .hero-stat-label {
@@ -231,8 +329,8 @@ p {
    ============================================================ */
 .page-header {
     background-color: var(--color-primary);
-    padding-top: 4rem;
-    padding-bottom: 3rem;
+    padding-top: 4.25rem;
+    padding-bottom: 3.25rem;
     margin-bottom: 3rem;
 }
 
@@ -241,10 +339,11 @@ p {
 }
 
 .page-header h1 {
+    font-family: var(--font-display);
     color: #ffffff;
-    font-size: 2.5rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-size: 2.6rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     margin-bottom: 0.75rem;
 }
 
@@ -256,7 +355,7 @@ p {
 }
 
 /* ============================================================
-   SECTION HEADINGS (used inside section-wrap blocks)
+   SECTION HEADINGS
    ============================================================ */
 .section-eyebrow {
     display: block;
@@ -269,15 +368,16 @@ p {
 }
 
 .section-heading {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
+    font-family: var(--font-display);
+    font-size: 2.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
     margin-bottom: 3rem;
 }
 
 .section-wrap {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
 }
 
 .section-wrap.subtle {
@@ -293,7 +393,7 @@ p {
     gap: 0.75rem;
     background-color: #ffffff;
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 1rem 1.25rem;
     transition: all 0.2s ease;
     height: 100%;
@@ -301,7 +401,7 @@ p {
 
 .skill-pill:hover {
     border-color: var(--color-accent);
-    box-shadow: 0 10px 25px -8px rgba(37, 99, 235, 0.2);
+    box-shadow: var(--shadow-sm);
     transform: translateY(-2px);
 }
 
@@ -311,6 +411,21 @@ p {
     object-fit: contain;
     flex-shrink: 0;
     display: block;
+}
+
+.skill-pill-fallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: var(--color-bg-subtle);
+    color: var(--color-accent);
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    flex-shrink: 0;
 }
 
 .skill-pill-name {
@@ -330,18 +445,26 @@ p {
    ============================================================ */
 .content-card {
     border: 1px solid var(--color-border);
-    border-radius: 14px;
+    border-radius: var(--radius-md);
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
-    transition: all 0.25s ease;
+    transition: box-shadow 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
     background: #fff;
 }
 
 .content-card:hover {
-    box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.15);
+    box-shadow: var(--shadow-md);
     transform: translateY(-4px);
+    border-color: rgba(37, 99, 235, 0.25);
+}
+
+.content-card-img-wrap {
+    display: block;
+    overflow: hidden;
+    height: 200px;
+    background-color: var(--color-bg-subtle);
 }
 
 .content-card-img {
@@ -350,6 +473,11 @@ p {
     height: 200px;
     object-fit: cover;
     background-color: var(--color-bg-subtle);
+    transition: transform 0.5s ease;
+}
+
+.content-card:hover .content-card-img {
+    transform: scale(1.05);
 }
 
 .content-card-body {
@@ -438,9 +566,10 @@ p {
 }
 
 .timeline-title {
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-weight: 600;
     color: var(--color-primary);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     margin-bottom: 0.2rem;
 }
 
@@ -455,7 +584,7 @@ p {
    ============================================================ */
 .cert-card {
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 1.25rem;
     display: flex;
     gap: 1rem;
@@ -465,7 +594,7 @@ p {
 }
 
 .cert-card:hover {
-    box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.1);
+    box-shadow: var(--shadow-sm);
 }
 
 .cert-card img {
@@ -482,13 +611,13 @@ p {
 .contact-card {
     background: #fff;
     border: 1px solid var(--color-border);
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 2.5rem;
-    box-shadow: 0 20px 50px -20px rgba(15, 23, 42, 0.15);
+    box-shadow: var(--shadow-md);
 }
 
 .form-control {
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     border-color: var(--color-border);
     padding: 0.65rem 0.9rem;
 }
@@ -515,17 +644,16 @@ p {
 }
 
 /* ============================================================
-   CARDS (generic Bootstrap .card override, used anywhere
-   we haven't switched to .content-card yet)
+   CARDS (generic Bootstrap .card override)
    ============================================================ */
 .card {
     border: 1px solid var(--color-border);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .card:hover {
-    box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.1);
+    box-shadow: var(--shadow-sm);
     transform: translateY(-2px);
 }
 
@@ -577,11 +705,12 @@ p {
 
 .footer-logo {
     display: inline-block;
-    font-size: 1.25rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 600;
     color: #ffffff;
     text-decoration: none;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     margin-bottom: 0.75rem;
 }
 
