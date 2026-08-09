@@ -18,6 +18,18 @@ class Post(models.Model):
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    category = models.CharField(
+    max_length=20,
+    choices=[
+        ('ai', 'AI'),
+        ('django', 'Django'),
+        ('web', 'Web Development'),
+        ('backend', 'Backend'),
+        ('career', 'Career'),
+        ('devops', 'Tools & DevOps'),
+    ],
+    default='django',
+)
 
     class Meta:
         ordering = ['-created_at']

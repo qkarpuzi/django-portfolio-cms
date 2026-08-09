@@ -1,9 +1,12 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 from .models import Profile, Skill
 from .forms import ContactForm
 from apps.experience.models import Experience, Education, Certificate
 from apps.projects.models import Project
+from apps.services.models import Service
 
 
 def home(request):
@@ -15,6 +18,8 @@ def home(request):
         'skills': skills,
         'projects_count': projects_count,
         'skills_count': skills.count(),
+        'featured_projects': Project.objects.filter(is_featured=True),
+        'services': Service.objects.all(),
     }
     return render(request, 'core/home.html', context)
 
@@ -36,7 +41,24 @@ def contact(request):
     if request.method == 'POST':
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            contact_message = form.save()
+
+            try:
+                send_mail(
+                    subject=f"Portfolio Contact: {contact_message.subject}",
+                    message=(
+                        f"New message from your portfolio site.\n\n"
+                        f"Name: {contact_message.name}\n"
+                        f"Email: {contact_message.email}\n\n"
+                        f"Message:\n{contact_message.message}"
+                    ),
+                    from_email=settings.DEFAULT_FROM_EMAIL,
+                    recipient_list=[settings.CONTACT_FORM_RECIPIENT],
+                    fail_silently=False,
+                )
+            except Exception as e:
+                print("EMAIL SEND FAILED:", e)
+
             messages.success(request, "Thanks for reaching out! I'll get back to you soon.")
             return redirect('core:contact')
     else:

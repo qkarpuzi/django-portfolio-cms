@@ -1,41 +1,92 @@
 {% extends "base.html" %}
+{% load static %}
+{% load blog_extras %}
 
-{% block title %}Blog | My Portfolio{% endblock %}
+{% block title %}Blog{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <div class="container">
-            <span class="section-eyebrow">Writing</span>
-            <h1>Blog</h1>
-            <p>Thoughts on development, engineering, and building things well.</p>
-        </div>
-    </div>
 
-    <div class="page-content">
-        {% if posts %}
-            <div class="row g-4">
-                {% for post in posts %}
-                    <div class="col-md-6 col-lg-4">
-                        <div class="content-card">
-                            {% if post.featured_image %}
-                                <img src="{{ post.featured_image.url }}" class="content-card-img" alt="{{ post.title }}">
+<section class="section-wrap">
+    <div class="container">
+
+        <div class="text-center mx-auto mb-5" style="max-width: 640px;">
+            <span class="section-eyebrow">My Blog</span>
+            <h1 style="font-family: var(--font-display); font-size: 2.75rem;">Blog</h1>
+            <p class="text-muted mb-0">Thoughts, insights and tutorials about software engineering, AI and building products.</p>
+        </div>
+
+        <div class="row g-5">
+
+            <!-- Main content -->
+            <div class="col-lg-8">
+                {% if featured_post %}
+                    <a href="{% url 'blog:detail' featured_post.slug %}" class="text-decoration-none">
+                        <div class="content-card mb-4">
+                            {% if featured_post.featured_image %}
+                                <img src="{{ featured_post.featured_image.url }}" alt="{{ featured_post.title }}" style="width:100%; height:340px; object-fit:cover;">
                             {% endif %}
-                            <div class="content-card-body">
-                                <div class="content-card-meta mb-2">{{ post.created_at|date:"M d, Y" }}</div>
-                                <h5 class="content-card-title">
-                                    <a href="{% url 'blog:detail' post.slug %}">{{ post.title }}</a>
-                                </h5>
-                                <p class="content-card-text">{{ post.excerpt }}</p>
-                                <a href="{% url 'blog:detail' post.slug %}" class="btn btn-outline-dark btn-sm">Read More &rarr;</a>
+                            <div class="content-card-body p-4">
+                                <span class="section-eyebrow mb-2">{{ featured_post.get_category_display }}</span>
+                                <h2 style="font-family: var(--font-display); font-size: 1.8rem; color: var(--color-primary);">{{ featured_post.title }}</h2>
+                                <p class="content-card-text">{{ featured_post.excerpt }}</p>
+                                <div class="content-card-meta">
+                                    {{ featured_post.created_at|date:"M j, Y" }} &nbsp;&bull;&nbsp; {{ featured_post.content|reading_time }}
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </a>
+                {% endif %}
+
+                {% for post in posts %}
+                    <a href="{% url 'blog:detail' post.slug %}" class="text-decoration-none">
+                        <div class="content-card mb-4 flex-md-row">
+                            <div class="row g-0">
+                                <div class="col-md-4">
+                                    {% if post.featured_image %}
+                                        <div class="content-card-img-wrap" style="height:100%;">
+                                            <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="content-card-img" style="height:100%;">
+                                        </div>
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="content-card-body">
+                                        <span class="section-eyebrow mb-1">{{ post.get_category_display }}</span>
+                                        <h3 class="content-card-title" style="font-size:1.3rem;">{{ post.title }}</h3>
+                                        <p class="content-card-text">{{ post.excerpt }}</p>
+                                        <div class="content-card-meta mt-auto">
+                                            {{ post.created_at|date:"M j, Y" }} &nbsp;&bull;&nbsp; {{ post.content|reading_time }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                {% empty %}
+                    {% if not featured_post %}
+                        <div class="empty-state">
+                            <p>No posts published yet — check back soon.</p>
+                        </div>
+                    {% endif %}
                 {% endfor %}
             </div>
-        {% else %}
-            <div class="empty-state">
-                <p>No posts published yet.</p>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="contact-card p-4">
+                    <h6 class="footer-heading" style="color: var(--color-primary);">Categories</h6>
+                    <ul class="list-unstyled mt-3 mb-0">
+                        <li class="mb-2"><a href="{% url 'blog:list' %}" class="text-decoration-none" style="color: var(--color-text);">All Posts</a></li>
+                        {% for value, label in category_choices %}
+                            <li class="mb-2">
+                                <a href="{% url 'blog:list' %}?category={{ value }}" class="text-decoration-none" style="color: var(--color-text);">{{ label }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
-        {% endif %}
+
+        </div>
     </div>
+</section>
+
 {% endblock %}

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}{% if seo %}{{ seo.site_title }}{% else %}My Portfolio{% endif %}{% endblock %}</title>
+    <title>{% block title %}{% if seo %}{{ seo.site_title }}{% else %}Qefser Karpuzi — Software Engineer & AI Engineer{% endif %}{% endblock %}</title>
 
     {% if seo %}
         <meta name="description" content="{{ seo.meta_description }}">
@@ -19,10 +19,10 @@
         {% endif %}
     {% endif %}
 
-    <!-- Google Fonts: Inter for body, Fraunces for display/headings -->
+    <!-- Google Fonts: Inter for body, Playfair Display for display/headings -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 
     <!-- Bootstrap 5 CSS -->
     <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
@@ -34,24 +34,37 @@
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark sticky-top" id="siteNavbar">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">Qefser Karpuzi</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-               <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:about' %}">About</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'projects:list' %}">Projects</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'services:list' %}">Services</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'blog:list' %}">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'core:contact' %}">Contact</a></li>
-                </ul>
+    <header class="site-header sticky-top" id="siteNavbar">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+
+                <a class="navbar-brand d-flex align-items-center gap-3" href="{% url 'core:home' %}">
+                    <span class="brand-mark">QK</span>
+                    <span class="brand-text-wrap">
+                        <span class="brand-name">QEFSER KARPUZI</span>
+                        <span class="brand-role">Software Engineer &amp; AI Engineer</span>
+                    </span>
+                </a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav mx-auto">
+                        <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'core:home' %}active{% endif %}" href="{% url 'core:home' %}">Home</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'core:about' %}active{% endif %}" href="{% url 'core:about' %}">About</a></li>
+                        <li class="nav-item"><a class="nav-link {% if 'projects' in request.resolver_match.namespace %}active{% endif %}" href="{% url 'projects:list' %}">Projects</a></li>
+                        <li class="nav-item"><a class="nav-link {% if 'services' in request.resolver_match.namespace %}active{% endif %}" href="{% url 'services:list' %}">Services</a></li>
+                        <li class="nav-item"><a class="nav-link {% if 'blog' in request.resolver_match.namespace %}active{% endif %}" href="{% url 'blog:list' %}">Blog</a></li>
+                        <li class="nav-item"><a class="nav-link {% if request.resolver_match.view_name == 'core:contact' %}active{% endif %}" href="{% url 'core:contact' %}">Contact</a></li>
+                    </ul>
+
+                    <a href="{% url 'core:contact' %}" class="btn btn-navbar-cta d-none d-lg-inline-flex">Let's Work Together</a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <main>
         {% block content %}
@@ -62,7 +75,7 @@
         <div class="container">
             <div class="footer-top">
                 <div class="footer-brand">
-                    <a href="{% url 'core:home' %}" class="footer-logo">My Portfolio</a>
+                    <a href="{% url 'core:home' %}" class="footer-logo">Qefser Karpuzi</a>
                     <p class="footer-tagline">Building clean, reliable software — one project at a time.</p>
                 </div>
 
@@ -103,7 +116,7 @@
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; {% now "Y" %} {% if profile %}{{ profile.full_name }}{% else %}My Portfolio{% endif %}. All rights reserved.</p>
+                <p>&copy; {% now "Y" %} {% if profile %}{{ profile.full_name }}{% else %}Qefser Karpuzi{% endif %}. All rights reserved.</p>
             </div>
         </div>
     </footer>

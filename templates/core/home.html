@@ -1,92 +1,156 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Home | My Portfolio{% endblock %}
+{% block title %}{% if profile %}{{ profile.full_name }} — {{ profile.title }}{% else %}Home{% endif %}{% endblock %}
 
 {% block content %}
-    {% if profile %}
-        <section class="hero">
-            <div class="container">
-                <div class="row align-items-center g-5">
-                    <div class="col-lg-7 reveal">
-                        <span class="kicker">Available for opportunities</span>
-                        <h1 class="hero-heading">
-                            Hi, I'm {{ profile.full_name }} —<br>
-                            <span class="accent">{{ profile.title }}</span>
-                        </h1>
-                        <p class="hero-subtext">{{ profile.bio|truncatewords:35 }}</p>
 
-                        <div class="d-flex gap-4 align-items-center flex-wrap">
-                            <a href="{% url 'projects:list' %}" class="btn btn-primary btn-lg">View My Work</a>
-                            <a href="{% url 'core:contact' %}" class="btn btn-outline-dark btn-lg">Get In Touch</a>
-                            {% if profile.resume %}
-                                <a href="{{ profile.resume.url }}" class="link-arrow" download>
-                                    Download Resume
-                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v13"/><path d="m7 11 5 5 5-5"/><path d="M5 21h14"/></svg>
-                                </a>
-                            {% endif %}
-                        </div>
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
 
-                        <div class="hero-stats">
-                            <div>
-                                <div class="hero-stat-number">{{ experience_years|default:"2" }}+</div>
-                                <div class="hero-stat-label">Years Experience</div>
-                            </div>
-                            {% if projects_count %}
-                            <div>
-                                <div class="hero-stat-number">{{ projects_count }}</div>
-                                <div class="hero-stat-label">Projects Delivered</div>
-                            </div>
-                            {% endif %}
-                            {% if skills_count %}
-                            <div>
-                                <div class="hero-stat-number">{{ skills_count }}</div>
-                                <div class="hero-stat-label">Technologies</div>
-                            </div>
-                            {% endif %}
-                        </div>
-                    </div>
+            <div class="col-lg-6">
+                <span class="hero-eyebrow">Hello, I'm</span>
+                <h1 class="hero-heading">{% if profile %}{{ profile.full_name }}{% else %}Your Name{% endif %}</h1>
+                <span class="hero-role">{% if profile %}{{ profile.title }}{% endif %}</span>
 
-                    {% if profile.profile_picture %}
-                        <div class="col-lg-5 reveal">
-                            <div class="hero-photo-wrap">
-                                <img src="{{ profile.profile_picture.url }}" alt="{{ profile.full_name }}" class="hero-photo">
-                            </div>
-                        </div>
+                <p class="hero-subtext">
+                    {% if profile %}{{ profile.bio|truncatewords:28 }}{% endif %}
+                </p>
+
+                <div class="d-flex flex-wrap align-items-center gap-3 mb-4">
+                    <a href="{% url 'projects:list' %}" class="btn btn-primary">View My Work</a>
+                    {% if profile.resume %}
+                        <a href="{{ profile.resume.url }}" class="btn btn-outline-accent d-inline-flex align-items-center gap-2" download>
+                            Download CV
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+                        </a>
+                    {% endif %}
+                </div>
+
+                <div class="d-flex align-items-center gap-3">
+                    {% for link in social_links %}
+                        {% if link.platform == 'linkedin' %}
+                            <a href="{{ link.url }}" target="_blank" rel="noopener" class="hero-social-link" aria-label="LinkedIn">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.11 20.45H3.56V9h3.55v11.45zM22.22 0H1.77C.8 0 0 .78 0 1.75v20.5C0 23.22.8 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.75V1.75C24 .78 23.2 0 22.22 0z"/></svg>
+                            </a>
+                        {% elif link.platform == 'github' %}
+                            <a href="{{ link.url }}" target="_blank" rel="noopener" class="hero-social-link" aria-label="GitHub">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.1.79-.25.79-.56 0-.28-.01-1.02-.02-2-3.2.7-3.88-1.54-3.88-1.54-.52-1.33-1.28-1.68-1.28-1.68-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.34.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.26.45-2.28 1.18-3.09-.12-.29-.51-1.46.11-3.04 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.19-1.49 3.15-1.18 3.15-1.18.62 1.58.23 2.75.11 3.04.74.81 1.18 1.83 1.18 3.09 0 4.41-2.69 5.38-5.25 5.67.41.36.78 1.06.78 2.14 0 1.55-.01 2.79-.01 3.17 0 .31.21.67.8.56A10.51 10.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                    {% if profile.email %}
+                        <a href="mailto:{{ profile.email }}" class="hero-social-link" aria-label="Email">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 6l10 7 10-7"/></svg>
+                        </a>
                     {% endif %}
                 </div>
             </div>
-        </section>
-    {% else %}
-        <div class="text-center text-muted py-5">
-            <p>No profile has been added yet. Go to the admin dashboard to create one.</p>
-        </div>
-    {% endif %}
 
-    <section class="section-wrap subtle">
-        <div class="container reveal">
-            <span class="section-eyebrow">What I Work With</span>
-            <h2 class="section-heading">Skills &amp; Technologies</h2>
-            {% if skills %}
-                <div class="row g-3">
-                    {% for skill in skills %}
-                        <div class="col-6 col-md-3">
-                            <div class="skill-pill">
-                                {% if skill.icon %}
-                                    <img src="{{ skill.icon.url }}" alt="{{ skill.name }}">
-                                {% else %}
-                                    <span class="skill-pill-fallback">{{ skill.name|slice:":1" }}</span>
-                                {% endif %}
-                                <div>
-                                    <div class="skill-pill-name">{{ skill.name }}</div>
-                                    <div class="skill-pill-level">{{ skill.get_proficiency_display }}</div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
+            <div class="col-lg-6">
+                <div class="hero-photo-wrap">
+                    {% if profile.profile_picture %}
+                        <img src="{{ profile.profile_picture.url }}" alt="{{ profile.full_name }}" class="hero-photo">
+                    {% endif %}
                 </div>
-            {% else %}
-                <p class="text-muted">No skills added yet.</p>
-            {% endif %}
+            </div>
+
         </div>
-    </section>
+    </div>
+</section>
+
+<!-- ==================== SERVICES BANNER ==================== -->
+{% if services %}
+<section class="services-banner">
+    <div class="container">
+        <div class="row g-4">
+            {% for service in services %}
+                <div class="col-md-3 col-sm-6">
+                    <div class="service-item">
+                        {% if service.icon %}
+                            <img src="{{ service.icon.url }}" alt="" width="34" height="34" class="mb-3">
+                        {% else %}
+                            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" class="mb-3"><circle cx="12" cy="12" r="9"/></svg>
+                        {% endif %}
+                        <div class="service-title">{{ service.title }}</div>
+                        <p class="service-text">{{ service.description|truncatewords:16 }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ==================== TECHNOLOGIES ==================== -->
+{% if skills %}
+<section class="section-wrap">
+    <div class="container">
+        <span class="section-eyebrow d-block text-center">Technologies I Work With</span>
+        <div class="row justify-content-center g-4 mt-2">
+            {% for skill in skills %}
+                <div class="col-4 col-sm-3 col-md-2 text-center">
+                    {% if skill.icon %}
+                        <img src="{{ skill.icon.url }}" alt="{{ skill.name }}" width="48" height="48" class="mb-2">
+                    {% else %}
+                        <div class="skill-pill-fallback mx-auto mb-2">{{ skill.name|first }}</div>
+                    {% endif %}
+                    <div class="small text-muted">{{ skill.name }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ==================== FEATURED PROJECTS ==================== -->
+{% if featured_projects %}
+<section class="section-wrap subtle">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-end mb-5">
+            <h2 class="mb-0" style="font-family: var(--font-display); font-size: 1.6rem;">Featured Projects</h2>
+            <a href="{% url 'projects:list' %}" class="link-arrow">
+                View All Projects
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </a>
+        </div>
+
+        <div class="row g-4">
+            {% for project in featured_projects %}
+                <div class="col-md-6 col-lg-4">
+                    <div class="content-card">
+                        <div class="content-card-img-wrap">
+                            <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="content-card-img">
+                        </div>
+                        <div class="content-card-body">
+                            <h3 class="content-card-title">
+                                <a href="{% url 'projects:detail' project.slug %}">{{ project.title }}</a>
+                            </h3>
+                            <p class="content-card-text">{{ project.short_description }}</p>
+                            <a href="{% url 'projects:detail' project.slug %}" class="link-arrow">
+                                View Case Study
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- ==================== CTA BANNER ==================== -->
+<section class="section-wrap pt-0">
+    <div class="container">
+        <div class="cta-banner">
+            <h2>Have a project in mind?</h2>
+            <p>Let's build something exceptional together.</p>
+            <a href="{% url 'core:contact' %}" class="btn btn-gold">Get In Touch</a>
+        </div>
+    </div>
+</section>
+
 {% endblock %}

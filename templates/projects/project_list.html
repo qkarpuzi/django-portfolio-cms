@@ -1,34 +1,45 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Projects | My Portfolio{% endblock %}
+{% block title %}Projects{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <div class="container">
-            <span class="section-eyebrow">Portfolio</span>
-            <h1>Selected Projects</h1>
-            <p>A collection of work I've built — from full-stack applications to backend systems.</p>
-        </div>
-    </div>
 
-    <div class="page-content">
+<section class="section-wrap">
+    <div class="container">
+
+        <div class="text-center mx-auto mb-5" style="max-width: 640px;">
+            <span class="section-eyebrow">My Work</span>
+            <h1 style="font-family: var(--font-display); font-size: 2.75rem;">Projects</h1>
+            <p class="text-muted mb-0">A collection of products I've designed and built with passion and precision.</p>
+        </div>
+
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-5" id="projectFilters">
+            <button class="filter-tab active" data-filter="all">All</button>
+            {% for value, label in category_choices %}
+                <button class="filter-tab" data-filter="{{ value }}">{{ label }}</button>
+            {% endfor %}
+        </div>
+
         {% if projects %}
-            <div class="row g-4">
+            <div class="row g-4" id="projectGrid">
                 {% for project in projects %}
-                    <div class="col-md-6 col-lg-4">
+                    <div class="col-md-6 col-lg-4 project-item" data-category="{{ project.category }}">
                         <div class="content-card">
-                            <img src="{{ project.thumbnail.url }}" class="content-card-img" alt="{{ project.title }}">
+                            <div class="content-card-img-wrap">
+                                <img src="{{ project.thumbnail.url }}" alt="{{ project.title }}" class="content-card-img">
+                            </div>
                             <div class="content-card-body">
-                                <h5 class="content-card-title">
+                                <h3 class="content-card-title">
                                     <a href="{% url 'projects:detail' project.slug %}">{{ project.title }}</a>
-                                </h5>
+                                </h3>
                                 <p class="content-card-text">{{ project.short_description }}</p>
-                                <div class="mb-3">
+                                <div>
+                                    <span class="tech-pill">{{ project.get_category_display }}</span>
                                     {% for tech in project.technologies.all %}
                                         <span class="tech-pill">{{ tech.name }}</span>
                                     {% endfor %}
                                 </div>
-                                <a href="{% url 'projects:detail' project.slug %}" class="btn btn-outline-dark btn-sm">View Case Study &rarr;</a>
                             </div>
                         </div>
                     </div>
@@ -36,8 +47,33 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <p>No projects added yet.</p>
+                <p>No projects have been added yet — check back soon.</p>
             </div>
         {% endif %}
+
     </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    (function () {
+        var buttons = document.querySelectorAll('#projectFilters .filter-tab');
+        var items = document.querySelectorAll('#projectGrid .project-item');
+
+        buttons.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+                buttons.forEach(function (b) { b.classList.remove('active'); });
+                btn.classList.add('active');
+
+                var filter = btn.getAttribute('data-filter');
+                items.forEach(function (item) {
+                    var match = filter === 'all' || item.getAttribute('data-category') === filter;
+                    item.style.display = match ? '' : 'none';
+                });
+            });
+        });
+    })();
+</script>
 {% endblock %}

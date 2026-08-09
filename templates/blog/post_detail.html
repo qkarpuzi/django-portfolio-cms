@@ -1,27 +1,66 @@
 {% extends "base.html" %}
+{% load static %}
+{% load blog_extras %}
 
-{% block title %}{{ post.title }} | My Portfolio{% endblock %}
+{% block title %}{{ post.title }}{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <div class="container">
-            <a href="{% url 'blog:list' %}" class="text-decoration-none text-white-50 d-inline-block mb-3">&larr; Back to Blog</a>
-            <h1>{{ post.title }}</h1>
-            <p>{% if post.author %}By {{ post.author.username }} — {% endif %}{{ post.created_at|date:"M d, Y" }}</p>
+
+<section class="section-wrap pb-0">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 640px;">
+            <span class="section-eyebrow">{{ post.get_category_display }}</span>
+            <h1 style="font-family: var(--font-display); font-size: 2.75rem; color: var(--color-primary);">{{ post.title }}</h1>
+            <p class="text-muted mb-0">
+                {% if post.author %}By {{ post.author.get_full_name|default:post.author.username }} &nbsp;&bull;&nbsp; {% endif %}
+                {{ post.created_at|date:"M j, Y" }} &nbsp;&bull;&nbsp; {{ post.content|reading_time }}
+            </p>
         </div>
     </div>
+</section>
 
-    <div class="page-content">
+<section class="section-wrap pt-4">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
+
                 {% if post.featured_image %}
-                    <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="img-fluid rounded-4 mb-5 shadow-sm">
+                    <div class="content-card-img-wrap mb-4" style="height: 400px; border-radius: var(--radius-md); overflow: hidden;">
+                        <img src="{{ post.featured_image.url }}" alt="{{ post.title }}" class="content-card-img" style="height: 100%;">
+                    </div>
                 {% endif %}
 
-                <div style="font-size: 1.05rem; line-height: 1.8;">
-                    {{ post.content|safe }}
+                <div style="font-size: 1.05rem; line-height: 1.85;">
+                    {{ post.content|linebreaks }}
                 </div>
+
+                {% if related_posts %}
+                    <hr class="my-5" style="border-color: var(--color-border);">
+                    <h2 class="mb-4" style="font-family: var(--font-display); font-size: 1.5rem;">More in {{ post.get_category_display }}</h2>
+                    <div class="row g-4">
+                        {% for related in related_posts %}
+                            <div class="col-md-4">
+                                <div class="content-card">
+                                    {% if related.featured_image %}
+                                        <div class="content-card-img-wrap">
+                                            <img src="{{ related.featured_image.url }}" alt="{{ related.title }}" class="content-card-img">
+                                        </div>
+                                    {% endif %}
+                                    <div class="content-card-body">
+                                        <h3 class="content-card-title" style="font-size: 1.1rem;">
+                                            <a href="{% url 'blog:detail' related.slug %}">{{ related.title }}</a>
+                                        </h3>
+                                        <div class="content-card-meta">{{ related.created_at|date:"M j, Y" }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
             </div>
         </div>
     </div>
+</section>
+
 {% endblock %}

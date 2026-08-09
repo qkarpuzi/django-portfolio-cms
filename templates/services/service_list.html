@@ -1,29 +1,39 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Services | My Portfolio{% endblock %}
+{% block title %}Services{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <div class="container">
+
+<section class="section-wrap pb-0">
+    <div class="container">
+        <div class="text-center mx-auto mb-5" style="max-width: 640px;">
             <span class="section-eyebrow">What I Offer</span>
-            <h1>Services</h1>
-            <p>Here's how I can help bring your project to life.</p>
+            <h1 style="font-family: var(--font-display); font-size: 2.75rem; color: var(--color-primary);">Services</h1>
+            <p class="text-muted mb-0">Ways I can help bring your ideas to life — from concept to deployment.</p>
         </div>
     </div>
+</section>
 
-    <div class="page-content">
+<section class="section-wrap pt-4">
+    <div class="container">
+
         {% if services %}
             <div class="row g-4">
                 {% for service in services %}
-                    <div class="col-md-4">
-                        <div class="content-card text-center">
-                            <div class="content-card-body align-items-center">
-                                {% if service.icon %}
-                                    <img src="{{ service.icon.url }}" alt="{{ service.title }}"
-                                         width="56" height="56" class="mb-3" style="object-fit: contain;">
-                                {% endif %}
-                                <h5 class="content-card-title">{{ service.title }}</h5>
-                                <p class="content-card-text">{{ service.description }}</p>
+                    <div class="col-md-6 col-lg-4">
+                        <div class="content-card h-100">
+                            <div class="content-card-body">
+                                <div class="d-flex align-items-center justify-content-center mb-4"
+                                     style="width:56px; height:56px; border-radius:14px; background-color: var(--color-bg-subtle); border:1px solid var(--color-border);">
+                                    {% if service.icon %}
+                                        <img src="{{ service.icon.url }}" alt="" width="28" height="28">
+                                    {% else %}
+                                        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--color-accent)" stroke-width="1.6"><circle cx="12" cy="12" r="9"/></svg>
+                                    {% endif %}
+                                </div>
+                                <h3 class="content-card-title">{{ service.title }}</h3>
+                                <p class="content-card-text mb-0">{{ service.description }}</p>
                             </div>
                         </div>
                     </div>
@@ -31,8 +41,17 @@
             </div>
         {% else %}
             <div class="empty-state">
-                <p>No services added yet.</p>
+                <p>No services have been added yet — check back soon.</p>
             </div>
         {% endif %}
+
+        <div class="cta-banner mt-5">
+            <h2>Need something specific?</h2>
+            <p>Let's talk about how I can help with your project.</p>
+            <a href="{% url 'core:contact' %}" class="btn btn-gold">Get In Touch</a>
+        </div>
+
     </div>
+</section>
+
 {% endblock %}

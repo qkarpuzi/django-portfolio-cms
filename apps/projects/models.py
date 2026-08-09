@@ -25,6 +25,16 @@ class Project(models.Model):
     is_featured = models.BooleanField(default=False)
     order = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
+    category = models.CharField(
+    max_length=20,
+    choices=[
+        ('web', 'Web Development'),
+        ('ai', 'AI & ML'),
+        ('backend', 'Backend'),
+        ('other', 'Other'),
+    ],
+    default='web',
+)
 
     class Meta:
         ordering = ['order', '-created_at']
@@ -40,3 +50,6 @@ class ProjectImage(models.Model):
 
     def __str__(self):
         return f"{self.project.title} - Image {self.pk}"
+
+
+
