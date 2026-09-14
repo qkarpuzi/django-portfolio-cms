@@ -1,0 +1,682 @@
+[
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$E8NWJ4jkOFZg9iytLmNa6U$0wy3BXKgRtmksw/+7c8l85M8g3PqV8aNyB7pfLx00RU=",
+    "last_login": "2026-08-09T21:20:18.207Z",
+    "is_superuser": true,
+    "username": "celi",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-07-17T18:58:50.521Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "core.profile",
+  "pk": 1,
+  "fields": {
+    "full_name": "Qefser Karpuzi",
+    "title": "Software Engineer",
+    "bio": "Simplicity is the ultimate sophistication in distributed systems.\r\nI am Qefser Karpuzi. My engineering thesis is simple: complex problems do not require complex, brittle code. I focus on developing clean, highly testable backend systems and responsive web platforms that execute perfectly under heavy operational loads.\r\n\r\nOperating as an instructor at Scantech Academy demands absolute mastery over the core rules of computing. When you are tasked with deconstructing complex data flow, network pipelines, and memory allocation for advanced cohorts, you cannot afford to rely on surface-level framework abstractions. That foundational discipline dictates every line of code I write.\r\n\r\nWhether scaling database query engines, designing resilient APIs, or rendering fast client interfaces, my focus remains squarely on system reliability, minimal operational overhead, and long-term business viability.",
+    "profile_picture": "profile/unnamed.jpg",
+    "resume": "resume/Qefser_Karpuzi_CV.pdf",
+    "email": "qefserkarpuzibusiness@gmail.com",
+    "phone": "+383 45 292 192",
+    "location": "Prishtine",
+    "created_at": "2026-07-17T21:43:51.478Z",
+    "updated_at": "2026-08-09T19:55:53.625Z"
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 4,
+  "fields": {
+    "name": "Python",
+    "icon": "skills/Python-logo-notext.svg.webp",
+    "proficiency": "advanced",
+    "order": 0
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 5,
+  "fields": {
+    "name": "Django",
+    "icon": "skills/django.jpg",
+    "proficiency": "advanced",
+    "order": 1
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 6,
+  "fields": {
+    "name": "Javascript",
+    "icon": "skills/JavaScript-logo.png",
+    "proficiency": "advanced",
+    "order": 2
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 7,
+  "fields": {
+    "name": "Postgre SQL",
+    "icon": "skills/postgresql_original_wordmark_logo_icon_146392.webp",
+    "proficiency": "advanced",
+    "order": 3
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 8,
+  "fields": {
+    "name": "Git",
+    "icon": "skills/Git_icon.svg.webp",
+    "proficiency": "advanced",
+    "order": 4
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 9,
+  "fields": {
+    "name": "Docker",
+    "icon": "skills/lg-6619d7c93f728-Docker.webp",
+    "proficiency": "intermediate",
+    "order": 5
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 10,
+  "fields": {
+    "name": "TensorFlow",
+    "icon": "skills/Tensorflow_logo.svg.webp",
+    "proficiency": "intermediate",
+    "order": 6
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 11,
+  "fields": {
+    "name": "React",
+    "icon": "skills/React-icon.svg.webp",
+    "proficiency": "intermediate",
+    "order": 7
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 12,
+  "fields": {
+    "name": "MySql",
+    "icon": "skills/MySQL-Logo.wine.png",
+    "proficiency": "advanced",
+    "order": 8
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 13,
+  "fields": {
+    "name": "Ollama / Local LLM Inference",
+    "icon": "skills/ollama-logo-hd.webp",
+    "proficiency": "intermediate",
+    "order": 8
+  }
+},
+{
+  "model": "core.skill",
+  "pk": 14,
+  "fields": {
+    "name": "NLP",
+    "icon": "skills/10129318.png",
+    "proficiency": "intermediate",
+    "order": 9
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 6,
+  "fields": {
+    "name": "Gavin Crosby",
+    "email": "qyrupigoti@mailinator.com",
+    "subject": "Est deleniti corporis rerum eu fugiat enim est dolore quas qui",
+    "message": "Id laborum Dolor r",
+    "created_at": "2026-08-09T20:58:53.704Z",
+    "is_read": false
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 7,
+  "fields": {
+    "name": "Alfonso Gregory",
+    "email": "denahyzym@mailinator.com",
+    "subject": "Qui consectetur rem sit velit blanditiis adipisci minima eaque et pariatur Incididunt lorem et corrupti blanditiis",
+    "message": "Sed beatae ea modi o",
+    "created_at": "2026-08-30T09:06:39.156Z",
+    "is_read": false
+  }
+},
+{
+  "model": "core.contactmessage",
+  "pk": 8,
+  "fields": {
+    "name": "Melissa Morse",
+    "email": "dysu@mailinator.com",
+    "subject": "Nostrum exercitation officiis qui sed qui similique qui officiis laudantium aut",
+    "message": "Hic reprehenderit vo",
+    "created_at": "2026-09-14T20:58:11.631Z",
+    "is_read": false
+  }
+},
+{
+  "model": "core.seosettings",
+  "pk": 1,
+  "fields": {
+    "site_title": "Qefser Karpuzi — Software Engineer",
+    "meta_description": "Portfolio of Qefser Karpuzi, a software engineer specializing in Django and backend development.",
+    "meta_keywords": "django, python, software engineer, portfolio",
+    "og_image": "seo/Kolegji_AAB.png"
+  }
+},
+{
+  "model": "core.sociallink",
+  "pk": 1,
+  "fields": {
+    "platform": "github",
+    "url": "https://github.com/qkarpuzi",
+    "order": 0
+  }
+},
+{
+  "model": "core.sociallink",
+  "pk": 2,
+  "fields": {
+    "platform": "linkedin",
+    "url": "https://www.linkedin.com/in/qefser-karpuzi-9437a7327/",
+    "order": 1
+  }
+},
+{
+  "model": "core.sociallink",
+  "pk": 3,
+  "fields": {
+    "platform": "twitter",
+    "url": "https://x.com/qefserkarpuzi_",
+    "order": 3
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 7,
+  "fields": {
+    "name": "PHP",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 8,
+  "fields": {
+    "name": "MySql",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 9,
+  "fields": {
+    "name": "Python",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 10,
+  "fields": {
+    "name": "Django",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 11,
+  "fields": {
+    "name": "React",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 12,
+  "fields": {
+    "name": "Javascript",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 13,
+  "fields": {
+    "name": "NodeJS",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 14,
+  "fields": {
+    "name": "PostgreSQL",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 15,
+  "fields": {
+    "name": "Supabase",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 16,
+  "fields": {
+    "name": "HTML",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 17,
+  "fields": {
+    "name": "CSS",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 18,
+  "fields": {
+    "name": "Ollama",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 19,
+  "fields": {
+    "name": "Sentence Transformers",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 20,
+  "fields": {
+    "name": "scikit-learn",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 21,
+  "fields": {
+    "name": "rank_bm25",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 22,
+  "fields": {
+    "name": "NumPy",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 23,
+  "fields": {
+    "name": "BeautifulSoup",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 24,
+  "fields": {
+    "name": "Requests",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 25,
+  "fields": {
+    "name": "thefuzz",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 26,
+  "fields": {
+    "name": "rapidfuzz",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 27,
+  "fields": {
+    "name": "OCR",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 28,
+  "fields": {
+    "name": "pytesseract",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 29,
+  "fields": {
+    "name": "pdf2image",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 30,
+  "fields": {
+    "name": "python-docx",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 31,
+  "fields": {
+    "name": "openpyxl",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 32,
+  "fields": {
+    "name": "python-pptx",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.technology",
+  "pk": 33,
+  "fields": {
+    "name": "Tailwind CSS",
+    "icon": ""
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 2,
+  "fields": {
+    "title": "Eli Propreté — Business Website",
+    "slug": "eli-proprete-business-website",
+    "short_description": "Full-stack website for a cleaning services business, built with PHP and MySQL, deployed on Hostinger.",
+    "description": "Designed and built the complete website for Eli Propreté, a cleaning services business based in France — from database schema to frontend.\r\n\r\nBuilt with PHP and MySQL, developed locally on XAMPP with phpMyAdmin, and deployed to production on Hostinger. Includes a services catalog, project gallery, and a working contact form for quote requests.\r\n\r\nOwned the project end-to-end: layout and visual design, backend logic, database structure, and hosting/deployment.",
+    "thumbnail": "projects/thumbnails/eli_proprete_thumbnail.png",
+    "live_url": "https://eliiproprete.com/",
+    "github_url": "",
+    "is_featured": true,
+    "order": 0,
+    "created_at": "2026-08-09T20:48:46.032Z",
+    "category": "web",
+    "technologies": [
+      8,
+      7,
+      11
+    ]
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 3,
+  "fields": {
+    "title": "AAB College AI Assistant",
+    "slug": "aab-college-ai-assistant",
+    "short_description": "Domain-specific AI chatbot for AAB College, built on a self-hosted LLM and a custom hybrid retrieval system.",
+    "description": "Built an AI-powered assistant that answers student and staff questions in Albanian, using content scraped from the college's own site, a curated FAQ database, and structured lookups for locations and staff.\r\n\r\nRuns entirely on self-hosted infrastructure — no third-party AI API. Uses a quantized local LLM via Ollama solely to rewrite retrieved content into natural Albanian, not to generate answers from its own knowledge, keeping every response grounded in real source data.\r\n\r\nBuilt a hybrid retrieval engine from scratch combining semantic search (sentence-transformer embeddings), BM25 keyword scoring, and a custom entity-disambiguation layer for handling ambiguous name/topic queries — plus a hand-written typo-correction and stemming pipeline for Albanian, a language with minimal existing NLP tooling.\r\n\r\nCurrently in active development in collaboration with a team; not yet deployed to production.",
+    "thumbnail": "projects/thumbnails/aab_chatbot_thumbnail.png",
+    "live_url": "",
+    "github_url": "https://github.com/qkarpuzi/aab-chatbot",
+    "is_featured": true,
+    "order": 1,
+    "created_at": "2026-08-09T21:06:09.529Z",
+    "category": "ai",
+    "technologies": [
+      23,
+      17,
+      10,
+      16,
+      12,
+      8,
+      22,
+      18,
+      14,
+      9,
+      24,
+      19,
+      15,
+      21,
+      26,
+      20,
+      25
+    ]
+  }
+},
+{
+  "model": "projects.project",
+  "pk": 4,
+  "fields": {
+    "title": "AI Document Classification System",
+    "slug": "ai-document-classification-system",
+    "short_description": "AI-powered system that extracts and classifies documents across PDF, Word, Excel, PowerPoint, and image formats — built as a Bachelor's thesis project.",
+    "description": "Bachelor's thesis: a Django-based system that automates document archiving by extracting text and classifying content across mixed formats — PDF, scanned images, Word, Excel, and PowerPoint — into one of fourteen predefined categories, with no manual tagging required.\r\n\r\nFor scanned or image-based documents, text is extracted via Tesseract OCR (through pytesseract) with PDF pages rendered through pdf2image/Poppler first. Digitally-authored files are parsed directly from their native structure using python-docx, openpyxl, and python-pptx. Classification runs on a hand-tuned, weighted keyword-scoring algorithm with word-boundary matching for precision.\r\n\r\nTo validate the approach, I ran a comparative experiment against traditional Machine Learning — training Naive Bayes and SVM models (scikit-learn) on a labeled 85-document dataset — to evaluate whether a trained model would outperform the keyword-based system, and at what cost. Findings and tradeoffs are documented in full in the thesis writeup.\r\n\r\nIncludes role-based access control (Administrator vs. regular user), a searchable document archive, and category management. Verified through unit testing, which surfaced and led to fixing a real keyword-matching bug during development.",
+    "thumbnail": "projects/thumbnails/thesis_thumbnail.png",
+    "live_url": "",
+    "github_url": "https://github.com/qkarpuzi/document-ai-system",
+    "is_featured": true,
+    "order": 1,
+    "created_at": "2026-08-09T21:24:14.601Z",
+    "category": "ai",
+    "technologies": [
+      10,
+      8,
+      9,
+      33,
+      31,
+      29,
+      28,
+      30,
+      32
+    ]
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 1,
+  "fields": {
+    "project": 2,
+    "image": "projects/screenshots/eli_proprete_gallery_1_services.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 2,
+  "fields": {
+    "project": 2,
+    "image": "projects/screenshots/eli_proprete_gallery_2_realisations.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 3,
+  "fields": {
+    "project": 2,
+    "image": "projects/screenshots/eli_proprete_gallery_3_contact.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 4,
+  "fields": {
+    "project": 3,
+    "image": "projects/screenshots/aab_chatbot_gallery_1.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 5,
+  "fields": {
+    "project": 4,
+    "image": "projects/screenshots/thesis_gallery_2_categories.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 6,
+  "fields": {
+    "project": 4,
+    "image": "projects/screenshots/thesis_gallery_1_processing.png",
+    "caption": ""
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 7,
+  "fields": {
+    "project": 4,
+    "image": "projects/screenshots/thesis_gallery_3_results.png",
+    "caption": ""
+  }
+},
+{
+  "model": "services.service",
+  "pk": 2,
+  "fields": {
+    "title": "AI & Machine Learning Solutions",
+    "description": "Custom AI systems including document classification, retrieval-augmented chatbots, and NLP pipelines — built with self-hosted models and hand-tuned retrieval logic, not off-the-shelf wrappers.",
+    "icon": "services/8345929.png",
+    "order": 0
+  }
+},
+{
+  "model": "services.service",
+  "pk": 3,
+  "fields": {
+    "title": "Backend Engineering & APIs",
+    "description": "Clean, maintainable backend architecture and REST APIs designed for scalability — database schema design, authentication, and integration with third-party services.",
+    "icon": "services/2166823.png",
+    "order": 1
+  }
+},
+{
+  "model": "services.service",
+  "pk": 4,
+  "fields": {
+    "title": "Web Development",
+    "description": "Full-stack web applications built with Django and Python — from database design to deployment. Responsive frontends in React and JavaScript when the project calls for it.",
+    "icon": "services/11096817.png",
+    "order": 2
+  }
+},
+{
+  "model": "services.service",
+  "pk": 5,
+  "fields": {
+    "title": "Technical Training",
+    "description": "Web development and Python instruction, from fundamentals through advanced topics (React, Node.js, MongoDB, OOP) — currently teaching at Scantech Academy.",
+    "icon": "services/11501844.png",
+    "order": 3
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 2,
+  "fields": {
+    "job_title": "AI Engineer",
+    "company": "AAB College",
+    "location": "Prishtine",
+    "start_date": "2026-02-02",
+    "end_date": null,
+    "description": "Building an AI-powered chatbot for Universiteti AAB in collaboration with a team, using Django and a hybrid natural-language retrieval architecture."
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 3,
+  "fields": {
+    "job_title": "Head of Software Engineering",
+    "company": "Eli Propreté",
+    "location": "France (Remote)",
+    "start_date": "2024-12-01",
+    "end_date": null,
+    "description": "Built and manage the company's full web presence — frontend, backend, database, and admin dashboard — from the ground up."
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 4,
+  "fields": {
+    "job_title": "Web Development & Python Instructor",
+    "company": "Scantech Academy",
+    "location": "Prishtine/Lipjan",
+    "start_date": "2026-02-01",
+    "end_date": null,
+    "description": "Teach a full-stack curriculum at Scantech Academy — covering web fundamentals, JavaScript (including advanced JS, React, React Native), Node.js and MongoDB, and Python (including OOP)."
+  }
+},
+{
+  "model": "experience.experience",
+  "pk": 5,
+  "fields": {
+    "job_title": "Freelance Full-Stack Developer",
+    "company": "Freelance",
+    "location": "",
+    "start_date": "2022-07-01",
+    "end_date": null,
+    "description": "Delivered full-stack web solutions for individual and business clients — backend development in Python/Django, frontend builds in React and JavaScript, and WordPress customization for content-managed sites. Owned projects end-to-end: architecture, development, deployment."
+  }
+},
+{
+  "model": "experience.education",
+  "pk": 1,
+  "fields": {
+    "degree": "Bachelor of Science in Computer Science and Software Engineering",
+    "institution": "AAB College",
+    "start_date": "2023-07-16",
+    "end_date": "2026-06-30",
+    "description": "Bachelor's thesis: built an AI-based document classification system that analyzes and categorizes documents across multiple formats (PDF, Word, Excel, PowerPoint, JPG, PNG), automatically identifying document type and content category."
+  }
+}
+]
